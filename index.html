@@ -219,9 +219,12 @@
           this.pane.addBinding(this.gridOptions, 'clearColor', { color: { type: 'float' } });
           this.pane.addBinding(this.gridOptions, 'lineColor', { color: { type: 'float' } });
           this.pane.addBinding(this.gridOptions, 'baseColor', { color: { type: 'float' } });
-          this.pane.addBinding(this.gridOptions, 'lineWidthX');
-          this.pane.addBinding(this.gridOptions, 'lineWidthY');
+          this.pane.addBinding(this.gridOptions, 'lineWidthX', { min: 0, max: 1 });
+          this.pane.addBinding(this.gridOptions, 'lineWidthY', { min: 0, max: 1 });
           this.pane.on('change', updateUniforms);
+          this.pane.addButton({
+            title: 'ViewSource',
+          }).on('click', () => { window.location = 'https://github.com/toji/pristine-grid-webgpu' });
         }
 
         onFrame(device, context, timestamp) {
