@@ -187,6 +187,7 @@ export class TinyWebGpuDemo {
       device: this.device,
       format: this.colorFormat,
       alphaMode: 'opaque',
+      viewFormats: [`${this.colorFormat}-srgb`]
     });
 
     this.frameUniformBuffer = this.device.createBuffer({
@@ -235,7 +236,7 @@ export class TinyWebGpuDemo {
       this.msaaColorTexture = this.device.createTexture({
         size,
         sampleCount: this.sampleCount,
-        format: this.colorFormat,
+        format: `${this.colorFormat}-srgb`,
         usage: GPUTextureUsage.RENDER_ATTACHMENT,
       });
     }
@@ -273,7 +274,7 @@ export class TinyWebGpuDemo {
   }
 
   get defaultRenderPassDescriptor() {
-    const colorTexture = this.context.getCurrentTexture().createView();
+    const colorTexture = this.context.getCurrentTexture().createView({ format: `${this.colorFormat}-srgb` });
     if (this.sampleCount > 1) {
       this.colorAttachment.resolveTarget = colorTexture;
     } else {

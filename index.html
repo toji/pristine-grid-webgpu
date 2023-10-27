@@ -68,7 +68,7 @@
 
         @fragment
         fn fragmentMain(in: VertexOut) -> @location(0) vec4f {
-          let grid = PristineGrid(in.uv, gridArgs.lineWidth);
+          var grid = PristineGrid(in.uv, gridArgs.lineWidth);
 
           // lerp between base and line color
           return mix(gridArgs.baseColor, gridArgs.lineColor, grid * gridArgs.lineColor.a);
@@ -136,7 +136,7 @@
               module,
               entryPoint: 'fragmentMain',
               targets: [{
-                format: this.colorFormat,
+                format: `${this.colorFormat}-srgb`,
               }],
             },
             depthStencil: {
@@ -153,10 +153,10 @@
 
           const vertexArray = new Float32Array([
           // x   y   z     u  v
-            -10, -0.5, -10,   0, 0,
-            10, -0.5, -10,   100, 0,
-            -10, -0.5,  10,   0, 100,
-            10, -0.5,  10,   100, 100,
+            -20, -0.5, -20,   0, 0,
+            20, -0.5, -20,   200, 0,
+            -20, -0.5,  20,   0, 200,
+            20, -0.5,  20,   200, 200,
           ]);
 
           this.vertexBuffer = device.createBuffer({
